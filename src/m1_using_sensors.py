@@ -3,7 +3,7 @@ This module lets you practice the use of robot sensors.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
+         and Tanner Brammeier and Miguel.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
@@ -26,8 +26,9 @@ def main():
     """ Calls the testing functions. """
     # Un-comment out these tests as you implement the methods they test.
     # run_test_beep_and_tone()
+
     # run_test_go_straight_for_seconds()
-    # run_test_go_straight_for_inches_using_time()
+    run_test_go_straight_for_inches_using_time()
     # run_test_go_straight_for_inches_using_sensor()
     # run_test_raise_arm()
     # run_test_lower_arm()
@@ -43,7 +44,7 @@ def run_test_beep_and_tone():
        -- tone method of the ToneMaker class
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Implement and test this method.
+    # DONE: 4.  Implement and test this method.
     # -------------------------------------------------------------------------
     # IMPORTANT:
     #   For testing the   beep   method,
@@ -57,6 +58,17 @@ def run_test_beep_and_tone():
     #   in increments of 10, with 50 millisecond durations.
     #   Do not forget to apply the   wait   method to tone, as usual.
     # -------------------------------------------------------------------------
+    b = Beeper()
+    for k in range(10):
+        b.beep().wait()
+        time.sleep(.25)
+    t = ToneMaker()
+    tone = 1000
+    for k in range(5):
+        t.tone(tone, 500).wait()
+        time.sleep(.25)
+        tone = tone + 150
+
 
 
 # -----------------------------------------------------------------------------
@@ -355,8 +367,13 @@ class DriveSystem(object):
         self.go_straight_for_seconds(seconds, speed)
 
     def go_straight_for_inches_using_sensor(self, inches, speed):
-        pass
-        # Live code this with students
+        # start = time.time()
+        # self.go(speed, speed)
+        inches_per_degree = self.left_motor.WheelCircumference/360
+        # inches = self.left_motor.get_position() * inches_per_degree
+
+
+
 
     def go_straight_until_black(self, speed):
         """
@@ -386,8 +403,9 @@ class DriveSystem(object):
 #   -- Motor
 #   -- TouchSensor
 #   -- ColorSensor
-#   -- IR_DistanceSensor
-#   --
+#   -- IR_ProximitySensor
+#   -- Beeper
+#   -- ToneMaker
 # USE them, but do NOT modify them.
 ###############################################################################
 class Motor(object):
